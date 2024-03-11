@@ -1,0 +1,1 @@
+./DDSHelloWorldExample publisher & ./DDSHelloWorldExample subscriber

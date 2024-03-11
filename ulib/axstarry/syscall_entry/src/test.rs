@@ -311,7 +311,10 @@ pub const OSTRAIN_TESTCASES: &[&str] = &[
 
 #[allow(dead_code)]
 pub const SDCARD_TESTCASES: &[&str] = &[
-    "LatencyTest2 both"
+    "busybox sh",
+    // "./DDSHelloWorldExample publisher",
+    // "busybox sh ./fastdds.sh",
+    // "LatencyTest2 both"
     // "busybox sh ./test_all.sh",
     // "./riscv64-linux-musl-native/bin/riscv64-linux-musl-gcc ./hello.c -static",
     // "./a.out",

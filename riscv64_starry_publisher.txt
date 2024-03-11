@@ -1,0 +1,2 @@
+    [92;1mBuilding[0m App: oscomp, Arch: riscv64, Platform: riscv64-qemu-virt, App type: rust
+[37mcargo build[0m [90m--target riscv64gc-unknown-none-elf --target-dir /home/nashzhou/projects/Starry/target --release  --manifest-path apps/oscomp/Cargo.toml --features "syscall_entry/log-level-debug syscall_entry/syscall_fs syscall_entry/syscall_mem syscall_entry/syscall_task syscall_entry/futex syscall_entry/signal syscall_entry/img syscall_entry/syscall_net syscall_entry/schedule"[0m

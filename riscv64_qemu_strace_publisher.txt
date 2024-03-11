@@ -1,0 +1,394 @@
+execve("./DDSHelloWorldExample", ["./DDSHelloWorldExample", "publisher"], 0x7fffca6edd68 /* 6 vars */) = 0
+set_tid_address(0x6a8064)               = 58
+brk(NULL)                               = 0x6a9000
+brk(0x6ab000)                           = 0x6ab000
+mmap(0x6a9000, 4096, PROT_NONE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x6a9000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87be4000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87be3000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87be2000
+sched_getaffinity(0, 128, [0])          = 8
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87be1000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87be0000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bdf000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bde000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bdd000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bdc000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bdb000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bda000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bd8000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bd6000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bd5000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bd3000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bd2000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bd1000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bcf000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bce000
+munmap(0x7fff87bd1000, 4096)            = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bd1000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bcc000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bcb000
+munmap(0x7fff87bd1000, 4096)            = 0
+munmap(0x7fff87bcc000, 8192)            = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bcc000
+munmap(0x7fff87bcc000, 8192)            = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bcc000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bc9000
+munmap(0x7fff87bcb000, 4096)            = 0
+munmap(0x7fff87bcc000, 8192)            = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bcc000
+munmap(0x7fff87bcc000, 8192)            = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bcc000
+mmap(NULL, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bc5000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bd1000
+mmap(NULL, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bc1000
+mmap(NULL, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bbd000
+mmap(NULL, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bb9000
+mmap(NULL, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bb5000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87bcb000
+mmap(NULL, 73728, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87ba3000
+ioctl(1, TIOCGWINSZ, {ws_row=0, ws_col=0, ws_xpixel=0, ws_ypixel=0}) = 0
+writev(1, [{iov_base="Starting ", iov_len=9}, {iov_base="\n", iov_len=1}], 2Starting 
+) = 10
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87ba2000
+openat(AT_FDCWD, "DEFAULT_FASTRTPS_PROFILES.xml", O_RDONLY|O_LARGEFILE) = -1 ENOENT (No such file or directory)
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87ba1000
+openat(AT_FDCWD, "/etc/localtime", O_RDONLY|O_NONBLOCK|O_LARGEFILE|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+socket(AF_NETLINK, SOCK_RAW|SOCK_CLOEXEC, NETLINK_ROUTE) = 3
+sendto(3, "\24\0\0\0\22\0\1\3\1\0\0\0\0\0\0\0\0\0\0\0", 20, 0, NULL, 0) = 20
+recvfrom(3, "\234\5\0\0\20\0\2\0\1\0\0\0:\0\0\0\0\0\4\3\1\0\0\0\10\0\0\0\0\0\0\0"..., 8192, MSG_DONTWAIT, NULL, NULL) = 2996
+recvfrom(3, "\24\0\0\0\3\0\2\0\1\0\0\0:\0\0\0\0\0\0\0", 8192, MSG_DONTWAIT, NULL, NULL) = 20
+sendto(3, "\24\0\0\0\26\0\1\3\2\0\0\0\0\0\0\0\0\0\0\0", 20, 0, NULL, 0) = 20
+recvfrom(3, "\24\0\0\0\3\0\2\0\2\0\0\0:\0\0\0\0\0\0\0", 8192, MSG_DONTWAIT, NULL, NULL) = 20
+close(3)                                = 0
+socket(AF_NETLINK, SOCK_RAW|SOCK_CLOEXEC, NETLINK_ROUTE) = 3
+sendto(3, "\24\0\0\0\22\0\1\3\1\0\0\0\0\0\0\0\0\0\0\0", 20, 0, NULL, 0) = 20
+recvfrom(3, "\234\5\0\0\20\0\2\0\1\0\0\0:\0\0\0\0\0\4\3\1\0\0\0\10\0\0\0\0\0\0\0"..., 8192, MSG_DONTWAIT, NULL, NULL) = 2996
+recvfrom(3, "\24\0\0\0\3\0\2\0\1\0\0\0:\0\0\0\0\0\0\0", 8192, MSG_DONTWAIT, NULL, NULL) = 20
+sendto(3, "\24\0\0\0\26\0\1\3\2\0\0\0\0\0\0\0\0\0\0\0", 20, 0, NULL, 0) = 20
+recvfrom(3, "\24\0\0\0\3\0\2\0\2\0\0\0:\0\0\0\0\0\0\0", 8192, MSG_DONTWAIT, NULL, NULL) = 20
+close(3)                                = 0
+getpid()                                = 58
+openat(AT_FDCWD, "/dev/urandom", O_RDONLY|O_LARGEFILE) = 3
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87ba0000
+read(3, "\232\10\263$", 4)              = 4
+close(3)                                = 0
+munmap(0x7fff87ba0000, 4096)            = 0
+uname({sysname="Linux", nodename="(none)", ...}) = 0
+geteuid()                               = 0
+openat(AT_FDCWD, "/etc/passwd", O_RDONLY|O_LARGEFILE|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+getpid()                                = 58
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87b9f000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87b9e000
+clock_gettime(CLOCK_REALTIME, {tv_sec=1710051131, tv_nsec=728602300}) = 0
+getpid()                                = 58
+openat(AT_FDCWD, "/dev/shm/fastrtps_74dec8ad00773327", O_RDWR|O_CREAT|O_EXCL|O_NONBLOCK|O_LARGEFILE|O_NOFOLLOW|O_CLOEXEC, 0644) = 3
+fcntl(3, F_SETFD, FD_CLOEXEC)           = 0
+fchmod(3, 0644)                         = 0
+fallocate(3, 0, 0, 1024)                = 0
+fstat(3, {st_mode=S_IFREG|0644, st_size=1024, ...}) = 0
+mmap(NULL, 1024, PROT_READ|PROT_WRITE, MAP_SHARED, 3, 0) = 0x7fff87b9d000
+close(3)                                = 0
+clock_gettime(CLOCK_REALTIME, {tv_sec=1710051131, tv_nsec=740905200}) = 0
+munmap(0x7fff87b9d000, 1024)            = 0
+unlinkat(AT_FDCWD, "/dev/shm/fastrtps_74dec8ad00773327", 0) = 0
+rt_sigprocmask(SIG_UNBLOCK, [RT_1 RT_2], NULL, 8) = 0
+mmap(NULL, 143360, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87b7b000
+mprotect(0x7fff87b7d000, 135168, PROT_READ|PROT_WRITE) = 0
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1 RT_2], [], 8) = 0
+clone(child_stack=0x7fff87b9dad0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID|0x400000, parent_tid=[59], tls=0x7fff87b9dbc8, child_tidptr=0x6a8064) = 59
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+mmap(NULL, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87b77000
+clock_gettime(CLOCK_REALTIME, {tv_sec=1710051131, tv_nsec=756381400}) = 0
+getpid()                                = 58
+openat(AT_FDCWD, "/dev/shm/fastrtps_7dd5ee0f0f35dc72_el", O_RDONLY|O_LARGEFILE) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/dev/shm/fastrtps_7dd5ee0f0f35dc72_el", O_RDONLY|O_CREAT|O_LARGEFILE, 0666) = 3
+flock(3, LOCK_EX|LOCK_NB)               = 0
+unlinkat(AT_FDCWD, "/dev/shm/fastrtps_7dd5ee0f0f35dc72", 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/dev/shm/fastrtps_7dd5ee0f0f35dc72", O_RDWR|O_CREAT|O_EXCL|O_NONBLOCK|O_LARGEFILE|O_NOFOLLOW|O_CLOEXEC, 0644) = 4
+fcntl(4, F_SETFD, FD_CLOEXEC)           = 0
+fchmod(4, 0644)                         = 0
+fallocate(4, 0, 0, 549408)              = 0
+fstat(4, {st_mode=S_IFREG|0644, st_size=549408, ...}) = 0
+mmap(NULL, 549408, PROT_READ|PROT_WRITE, MAP_SHARED, 4, 0) = 0x7fff87af0000
+close(4)                                = 0
+clock_gettime(CLOCK_REALTIME, {tv_sec=1710051131, tv_nsec=769009600}) = 0
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=619806700}) = 0
+clock_gettime(CLOCK_REALTIME, {tv_sec=1710051131, tv_nsec=771207500}) = 0
+eventfd2(0, EFD_CLOEXEC|EFD_NONBLOCK)   = 4
+epoll_create1(EPOLL_CLOEXEC)            = 5
+epoll_ctl(5, EPOLL_CTL_ADD, 4, {events=EPOLLIN|EPOLLERR|EPOLLET, data={u32=2277107568, u64=140735470495600}}) = 0
+write(4, "\1\0\0\0\0\0\0\0", 8)         = 8
+socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP) = 6
+epoll_ctl(5, EPOLL_CTL_ADD, 6, {events=EPOLLIN|EPOLLPRI|EPOLLERR|EPOLLHUP|EPOLLET, data={u32=2277305120, u64=140735470693152}}) = 0
+getsockopt(6, SOL_SOCKET, SO_SNDBUF, [212992], [4]) = 0
+getsockopt(6, SOL_SOCKET, SO_RCVBUF, [212992], [4]) = 0
+close(6)                                = 0
+socket(AF_NETLINK, SOCK_RAW|SOCK_CLOEXEC, NETLINK_ROUTE) = 6
+sendto(6, "\24\0\0\0\22\0\1\3\1\0\0\0\0\0\0\0\0\0\0\0", 20, 0, NULL, 0) = 20
+recvfrom(6, "\234\5\0\0\20\0\2\0\1\0\0\0:\0\0\0\0\0\4\3\1\0\0\0\10\0\0\0\0\0\0\0"..., 8192, MSG_DONTWAIT, NULL, NULL) = 2996
+recvfrom(6, "\24\0\0\0\3\0\2\0\1\0\0\0:\0\0\0\0\0\0\0", 8192, MSG_DONTWAIT, NULL, NULL) = 20
+sendto(6, "\24\0\0\0\26\0\1\3\2\0\0\0\0\0\0\0\0\0\0\0", 20, 0, NULL, 0) = 20
+recvfrom(6, "\24\0\0\0\3\0\2\0\2\0\0\0:\0\0\0\0\0\0\0", 8192, MSG_DONTWAIT, NULL, NULL) = 20
+close(6)                                = 0
+mmap(NULL, 143360, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87acd000
+mprotect(0x7fff87acf000, 135168, PROT_READ|PROT_WRITE) = 0
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1 RT_2], [], 8) = 0
+clone(child_stack=0x7fff87aefad0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID|0x400000, parent_tid=[60], tls=0x7fff87aefbc8, child_tidptr=0x6a8064) = 60
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+futex(0x7fff87b9f60c, FUTEX_WAKE_PRIVATE, 1) = 1
+socket(AF_NETLINK, SOCK_RAW|SOCK_CLOEXEC, NETLINK_ROUTE) = 6
+sendto(6, "\24\0\0\0\22\0\1\3\1\0\0\0\0\0\0\0\0\0\0\0", 20, 0, NULL, 0) = 20
+recvfrom(6, "\234\5\0\0\20\0\2\0\1\0\0\0:\0\0\0\0\0\4\3\1\0\0\0\10\0\0\0\0\0\0\0"..., 8192, MSG_DONTWAIT, NULL, NULL) = 2996
+recvfrom(6, "\24\0\0\0\3\0\2\0\1\0\0\0:\0\0\0\0\0\0\0", 8192, MSG_DONTWAIT, NULL, NULL) = 20
+sendto(6, "\24\0\0\0\26\0\1\3\2\0\0\0\0\0\0\0\0\0\0\0", 20, 0, NULL, 0) = 20
+recvfrom(6, "\24\0\0\0\3\0\2\0\2\0\0\0:\0\0\0\0\0\0\0", 8192, MSG_DONTWAIT, NULL, NULL) = 20
+close(6)                                = 0
+socket(AF_NETLINK, SOCK_RAW|SOCK_CLOEXEC, NETLINK_ROUTE) = 6
+sendto(6, "\24\0\0\0\22\0\1\3\1\0\0\0\0\0\0\0\0\0\0\0", 20, 0, NULL, 0) = 20
+recvfrom(6, "\234\5\0\0\20\0\2\0\1\0\0\0:\0\0\0\0\0\4\3\1\0\0\0\10\0\0\0\0\0\0\0"..., 8192, MSG_DONTWAIT, NULL, NULL) = 2996
+recvfrom(6, "\24\0\0\0\3\0\2\0\1\0\0\0:\0\0\0\0\0\0\0", 8192, MSG_DONTWAIT, NULL, NULL) = 20
+sendto(6, "\24\0\0\0\26\0\1\3\2\0\0\0\0\0\0\0\0\0\0\0", 20, 0, NULL, 0) = 20
+recvfrom(6, "\24\0\0\0\3\0\2\0\2\0\0\0:\0\0\0\0\0\0\0", 8192, MSG_DONTWAIT, NULL, NULL) = 20
+close(6)                                = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87acb000
+socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP) = 6
+epoll_ctl(5, EPOLL_CTL_ADD, 6, {events=EPOLLIN|EPOLLPRI|EPOLLERR|EPOLLHUP|EPOLLET, data={u32=2277305120, u64=140735470693152}}) = 0
+setsockopt(6, SOL_SOCKET, SO_REUSEADDR, [1], 4) = 0
+bind(6, {sa_family=AF_INET, sin_port=htons(7400), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+brk(0x6ac000)                           = 0x6ac000
+mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87abb000
+mmap(NULL, 143360, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87a98000
+mprotect(0x7fff87a9a000, 135168, PROT_READ|PROT_WRITE) = 0
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1 RT_2], [], 8) = 0
+clone(child_stack=0x7fff87abaad0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID|0x400000, parent_tid=[61], tls=0x7fff87ababc8, child_tidptr=0x6a8064) = 61
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+socket(AF_NETLINK, SOCK_RAW|SOCK_CLOEXEC, NETLINK_ROUTE) = 7
+sendto(7, "\24\0\0\0\22\0\1\3\1\0\0\0\0\0\0\0\0\0\0\0", 20, 0, NULL, 0) = 20
+recvfrom(7, "\234\5\0\0\20\0\2\0\1\0\0\0:\0\0\0\0\0\4\3\1\0\0\0\10\0\0\0\0\0\0\0"..., 8192, MSG_DONTWAIT, NULL, NULL) = 2996
+recvfrom(7, "\24\0\0\0\3\0\2\0\1\0\0\0:\0\0\0\0\0\0\0", 8192, MSG_DONTWAIT, NULL, NULL) = 20
+sendto(7, "\24\0\0\0\26\0\1\3\2\0\0\0\0\0\0\0\0\0\0\0", 20, 0, NULL, 0) = 20
+recvfrom(7, "\24\0\0\0\3\0\2\0\2\0\0\0:\0\0\0\0\0\0\0", 8192, MSG_DONTWAIT, NULL, NULL) = 20
+close(7)                                = 0
+socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP) = 7
+epoll_ctl(5, EPOLL_CTL_ADD, 7, {events=EPOLLIN|EPOLLPRI|EPOLLERR|EPOLLHUP|EPOLLET, data={u32=2276241840, u64=140735469629872}}) = 0
+bind(7, {sa_family=AF_INET, sin_port=htons(7410), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87a88000
+mmap(NULL, 143360, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87a65000
+mprotect(0x7fff87a67000, 135168, PROT_READ|PROT_WRITE) = 0
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1 RT_2], [], 8) = 0
+clone(child_stack=0x7fff87a87ad0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID|0x400000, parent_tid=[62], tls=0x7fff87a87bc8, child_tidptr=0x6a8064) = 62
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87a64000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87a62000
+faccessat(AT_FDCWD, "/dev/shm/fastrtps_port7411_mutex", F_OK) = -1 ENOENT (No such file or directory)
+clock_gettime(CLOCK_REALTIME, {tv_sec=1710051131, tv_nsec=851416600}) = 0
+openat(AT_FDCWD, "/dev/shm/tmp-851416600", O_RDWR|O_CREAT|O_EXCL|O_NONBLOCK|O_LARGEFILE|O_NOFOLLOW|O_CLOEXEC, 0644) = 8
+fcntl(8, F_SETFD, FD_CLOEXEC)           = 0
+write(8, "\1\0\0\0\0\0\0\0\0\0\0\0\377\177\0\0\330\325\301\365\377\177\0\0\4\0\0\0\0\0\0\0", 32) = 32
+fstat(8, {st_mode=S_IFREG|0644, st_size=32, ...}) = 0
+mmap(NULL, 32, PROT_READ|PROT_WRITE, MAP_SHARED, 8, 0) = 0x7fff87a61000
+close(8)                                = 0
+linkat(AT_FDCWD, "/dev/shm/tmp-851416600", AT_FDCWD, "/dev/shm/fastrtps_port7411_mutex", 0) = 0
+unlinkat(AT_FDCWD, "/dev/shm/tmp-851416600", 0) = 0
+clock_gettime(CLOCK_REALTIME, {tv_sec=1710051131, tv_nsec=861388800}) = 0
+openat(AT_FDCWD, "/dev/shm/fastrtps_port7411_el", O_RDONLY|O_LARGEFILE) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/dev/shm/fastrtps_port7411_el", O_RDONLY|O_CREAT|O_LARGEFILE, 0666) = 8
+flock(8, LOCK_EX|LOCK_NB)               = 0
+flock(8, LOCK_NB|LOCK_UN)               = 0
+close(8)                                = 0
+unlinkat(AT_FDCWD, "/dev/shm/fastrtps_port7411_el", 0) = 0
+openat(AT_FDCWD, "/dev/shm/fastrtps_port7411_sl", O_RDONLY|O_LARGEFILE) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/dev/shm/fastrtps_port7411_sl", O_RDONLY|O_CREAT|O_LARGEFILE, 0666) = 8
+flock(8, LOCK_EX|LOCK_NB)               = 0
+flock(8, LOCK_SH|LOCK_NB)               = 0
+flock(8, LOCK_NB|LOCK_UN)               = 0
+close(8)                                = 0
+openat(AT_FDCWD, "/dev/shm/fastrtps_port7411_sl", O_RDONLY|O_LARGEFILE) = 8
+flock(8, LOCK_EX|LOCK_NB)               = 0
+close(8)                                = 0
+unlinkat(AT_FDCWD, "/dev/shm/fastrtps_port7411_sl", 0) = 0
+openat(AT_FDCWD, "/dev/shm/fastrtps_port7411", O_RDWR|O_NONBLOCK|O_LARGEFILE|O_NOFOLLOW|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+mmap(NULL, 118784, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87a44000
+mmap(NULL, 118784, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87a27000
+munmap(0x7fff87a27000, 118784)          = 0
+openat(AT_FDCWD, "/dev/shm/fastrtps_port7411", O_RDWR|O_CREAT|O_EXCL|O_NONBLOCK|O_LARGEFILE|O_NOFOLLOW|O_CLOEXEC, 0644) = 8
+fcntl(8, F_SETFD, FD_CLOEXEC)           = 0
+fchmod(8, 0644)                         = 0
+fallocate(8, 0, 0, 52400)               = 0
+fstat(8, {st_mode=S_IFREG|0644, st_size=52400, ...}) = 0
+mmap(NULL, 52400, PROT_READ|PROT_WRITE, MAP_SHARED, 8, 0) = 0x7fff87a37000
+close(8)                                = 0
+clock_gettime(CLOCK_REALTIME, {tv_sec=1710051131, tv_nsec=952487000}) = 0
+clock_gettime(CLOCK_REALTIME, {tv_sec=1710051131, tv_nsec=953636500}) = 0
+openat(AT_FDCWD, "/dev/shm/fastrtps_port7411_el", O_RDONLY|O_LARGEFILE) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/dev/shm/fastrtps_port7411_el", O_RDONLY|O_CREAT|O_LARGEFILE, 0666) = 8
+flock(8, LOCK_EX|LOCK_NB)               = 0
+clock_gettime(CLOCK_REALTIME, {tv_sec=1710051131, tv_nsec=957570800}) = 0
+set_robust_list(0x6a7ed0, 24)           = 0
+clock_gettime(CLOCK_REALTIME, {tv_sec=1710051131, tv_nsec=959409400}) = 0
+clock_gettime(CLOCK_REALTIME, {tv_sec=1710051131, tv_nsec=960568300}) = 0
+getpid()                                = 58
+clock_gettime(CLOCK_REALTIME, {tv_sec=1710051131, tv_nsec=962026200}) = 0
+clock_gettime(CLOCK_REALTIME, {tv_sec=1710051131, tv_nsec=963056700}) = 0
+clock_gettime(CLOCK_REALTIME, {tv_sec=1710051131, tv_nsec=963916000}) = 0
+mmap(NULL, 20480, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87a32000
+munmap(0x7fff87a61000, 32)              = 0
+clock_gettime(CLOCK_REALTIME, {tv_sec=1710051131, tv_nsec=969296700}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87a61000
+mmap(NULL, 32768, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87a2a000
+mmap(NULL, 143360, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87a07000
+mprotect(0x7fff87a09000, 135168, PROT_READ|PROT_WRITE) = 0
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1 RT_2], [], 8) = 0
+clone(child_stack=0x7fff87a29ad0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID|0x400000, parent_tid=[63], tls=0x7fff87a29bc8, child_tidptr=0x6a8064) = 63
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP) = 9
+epoll_ctl(5, EPOLL_CTL_ADD, 9, {events=EPOLLIN|EPOLLPRI|EPOLLERR|EPOLLHUP|EPOLLET, data={u32=2276242608, u64=140735469630640}}) = 0
+bind(9, {sa_family=AF_INET, sin_port=htons(7411), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff879f7000
+mmap(NULL, 143360, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff879d4000
+mprotect(0x7fff879d6000, 135168, PROT_READ|PROT_WRITE) = 0
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1 RT_2], [], 8) = 0
+clone(child_stack=0x7fff879f6ad0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID|0x400000, parent_tid=[64], tls=0x7fff879f6bc8, child_tidptr=0x6a8064) = 64
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+mmap(NULL, 786068, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87914000
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=845977200}) = 0
+mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87904000
+mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff878f4000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff878f2000
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=850147800}) = 0
+mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff878e2000
+mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff878d2000
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=853096400}) = 0
+mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff878c2000
+mmap(NULL, 131072, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff878a2000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff878a1000
+mmap(NULL, 20480, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff8789c000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff8789b000
+mmap(NULL, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87897000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87895000
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=868518100}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87894000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87893000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87892000
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=874661800}) = 0
+socket(AF_NETLINK, SOCK_RAW|SOCK_CLOEXEC, NETLINK_ROUTE) = 10
+sendto(10, "\24\0\0\0\22\0\1\3\1\0\0\0\0\0\0\0\0\0\0\0", 20, 0, NULL, 0) = 20
+recvfrom(10, "\234\5\0\0\20\0\2\0\1\0\0\0:\0\0\0\0\0\4\3\1\0\0\0\10\0\0\0\0\0\0\0"..., 8192, MSG_DONTWAIT, NULL, NULL) = 2996
+recvfrom(10, "\24\0\0\0\3\0\2\0\1\0\0\0:\0\0\0\0\0\0\0", 8192, MSG_DONTWAIT, NULL, NULL) = 20
+sendto(10, "\24\0\0\0\26\0\1\3\2\0\0\0\0\0\0\0\0\0\0\0", 20, 0, NULL, 0) = 20
+recvfrom(10, "\24\0\0\0\3\0\2\0\2\0\0\0:\0\0\0\0\0\0\0", 8192, MSG_DONTWAIT, NULL, NULL) = 20
+close(10)                               = 0
+socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP) = 10
+epoll_ctl(5, EPOLL_CTL_ADD, 10, {events=EPOLLIN|EPOLLPRI|EPOLLERR|EPOLLHUP|EPOLLET, data={u32=2276242976, u64=140735469631008}}) = 0
+setsockopt(10, SOL_IP, IP_MULTICAST_TTL, "\1", 1) = 0
+bind(10, {sa_family=AF_INET, sin_port=htons(0), sin_addr=inet_addr("0.0.0.0")}, 16) = 0
+ioctl(10, FIONBIO, [0])                 = 0
+getsockname(10, {sa_family=AF_INET, sin_port=htons(42899), sin_addr=inet_addr("0.0.0.0")}, [28 => 16]) = 0
+setsockopt(10, SOL_IP, IP_MULTICAST_LOOP, [1], 4) = 0
+setsockopt(10, SOL_IP, IP_MULTICAST_IF, [16777343], 4) = -1 EADDRNOTAVAIL (Cannot assign requested address)
+close(10)                               = 0
+mmap(NULL, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff8788e000
+mmap(NULL, 143360, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff8786b000
+mprotect(0x7fff8786d000, 135168, PROT_READ|PROT_WRITE) = 0
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1 RT_2], [], 8) = 0
+clone(child_stack=0x7fff8788dad0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID|0x400000, parent_tid=[65], tls=0x7fff8788dbc8, child_tidptr=0x6a8064) = 65
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87869000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87867000
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=907276300}) = 0
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=908720900}) = 0
+futex(0x7fff87aef994, FUTEX_WAKE_PRIVATE, 1) = 1
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=910441400}) = 0
+futex(0x7fff87aef994, FUTEX_WAKE_PRIVATE, 1) = 1
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=916583000}) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87866000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87864000
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=920655600}) = 0
+mmap(NULL, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87860000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff8785f000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff8785e000
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=924702100}) = 0
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=925579000}) = 0
+futex(0x7fff87aef994, FUTEX_WAKE_PRIVATE, 1) = 1
+futex(0x7fff87ba22cc, FUTEX_WAKE_PRIVATE, 1) = 1
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=927752900}) = 0
+futex(0x7fff87aef994, FUTEX_WAKE_PRIVATE, 1) = 1
+futex(0x7fff87ba22cc, FUTEX_WAKE_PRIVATE, 1) = 1
+mmap(NULL, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff8785a000
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=934129000}) = 0
+futex(0x7fff87aef994, FUTEX_WAKE_PRIVATE, 1) = 1
+futex(0x7fff87ba22cc, FUTEX_WAKE_PRIVATE, 1) = 1
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=936463000}) = 0
+futex(0x7fff87aef994, FUTEX_WAKE_PRIVATE, 1) = 1
+futex(0x7fff87ba22cc, FUTEX_WAKE_PRIVATE, 1) = 1
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=940290900}) = 0
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=941126800}) = 0
+futex(0x7fff87aef994, FUTEX_WAKE_PRIVATE, 1) = 1
+futex(0x7fff87ba22cc, FUTEX_WAKE_PRIVATE, 1) = 1
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=943234400}) = 0
+futex(0x7fff87aef994, FUTEX_WAKE_PRIVATE, 1) = 1
+futex(0x7fff87ba22cc, FUTEX_WAKE_PRIVATE, 1) = 1
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=945681900}) = 0
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=947399400}) = 0
+futex(0x7fff87aef994, FUTEX_WAKE_PRIVATE, 1) = 1
+futex(0x7fff87ba22cc, FUTEX_WAKE_PRIVATE, 1) = 1
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=952208600}) = 0
+clock_gettime(CLOCK_REALTIME, {tv_sec=1710051132, tv_nsec=103521200}) = 0
+futex(0x7fff87aef994, FUTEX_WAKE_PRIVATE, 1) = 1
+futex(0x7fff87ba22cc, FUTEX_WAKE_PRIVATE, 1) = 1
+futex(0x7fff87b9f60c, FUTEX_WAKE_PRIVATE, 1) = 1
+mmap(NULL, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87856000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87854000
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=969869600}) = 0
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=970898500}) = 0
+futex(0x7fff87aef994, FUTEX_WAKE_PRIVATE, 1) = 1
+futex(0x7fff87ba22cc, FUTEX_WAKE_PRIVATE, 1) = 1
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=973174300}) = 0
+futex(0x7fff87aef994, FUTEX_WAKE_PRIVATE, 1) = 1
+futex(0x7fff87ba22cc, FUTEX_WAKE_PRIVATE, 1) = 1
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=976332700}) = 0
+futex(0x7fff87aef994, FUTEX_WAKE_PRIVATE, 1) = 1
+futex(0x7fff87ba22cc, FUTEX_WAKE_PRIVATE, 1) = 1
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=248, tv_nsec=978533700}) = 0
+futex(0x7fff87aef994, FUTEX_WAKE_PRIVATE, 1) = 1
+futex(0x7fff87ba22cc, FUTEX_WAKE_PRIVATE, 1) = 1
+mmap(NULL, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87850000
+brk(0x6ad000)                           = 0x6ad000
+mmap(NULL, 32768, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87848000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87846000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87844000
+mmap(NULL, 32768, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff8783c000
+mmap(NULL, 32768, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87834000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87833000
+mmap(NULL, 32768, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff8782b000
+mmap(NULL, 32768, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87823000
+mmap(NULL, 16384, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff8781f000
+mmap(NULL, 32768, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff87817000
+mmap(NULL, 32768, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff8780f000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff8780e000
+mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff877fe000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff877fd000
+mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff877ed000
+mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff877dd000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff877dc000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff877db000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff877da000
+munmap(0x7fff877dc000, 4096)            = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff877d8000
+mmap(NULL, 65536, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff877c8000
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=249, tv_nsec=63324600}) = 0
+clock_gettime(CLOCK_REALTIME, {tv_sec=1710051132, tv_nsec=214703800}) = 0
+clock_gettime(CLOCK_MONOTONIC, {tv_sec=249, tv_nsec=65572800}) = 0
+futex(0x7fff87aef994, FUTEX_WAKE_PRIVATE, 1) = 1
+futex(0x7fff87ba22cc, FUTEX_WAKE_PRIVATE, 1) = 1
+futex(0x7fff87aef994, FUTEX_WAKE_PRIVATE, 1) = 1
+futex(0x7fff87ba22cc, FUTEX_WAKE_PRIVATE, 1) = 1
+futex(0x7fff87b9f60c, FUTEX_WAKE_PRIVATE, 1) = 1
+mmap(NULL, 143360, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fff877a5000
+mprotect(0x7fff877a7000, 135168, PROT_READ|PROT_WRITE) = 0
+rt_sigprocmask(SIG_BLOCK, ~[RTMIN RT_1 RT_2], [], 8) = 0
+clone(child_stack=0x7fff877c7ad0, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID|0x400000, parent_tid=[66], tls=0x7fff877c7bc8, child_tidptr=0x6a8064) = 66
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+writev(1, [{iov_base="Publisher running 10 samples.", iov_len=29}, {iov_base="\n", iov_len=1}], 2Publisher running 10 samples.
+) = 30
+futex(0x7fff877c7b28, FUTEX_WAIT_PRIVATE, 2, NULL

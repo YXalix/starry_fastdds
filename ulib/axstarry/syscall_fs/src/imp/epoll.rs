@@ -6,6 +6,7 @@ use alloc::sync::Arc;
 use axhal::{mem::VirtAddr, time::current_ticks};
 use axprocess::current_process;
 use syscall_utils::{SyscallError, SyscallResult};
+use axlog::error;
 
 use crate::ctype::epoll::{EpollCtl, EpollEvent, EpollFile};
 
@@ -82,6 +83,7 @@ pub fn syscall_epoll_wait(
     max_event: i32,
     timeout: i32,
 ) -> SyscallResult {
+    error!("syscall_epoll_wait({:?}, {:?}, {:?}, {:?})", epfd, event, max_event, timeout);
     if max_event <= 0 {
         return Err(SyscallError::EINVAL);
     }

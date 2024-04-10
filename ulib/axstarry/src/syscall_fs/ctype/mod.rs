@@ -10,4 +10,4 @@ pub use file::FileDesc;
 
 pub mod epoll;
 
-pub mod event_fd;
+pub mod eventfd;

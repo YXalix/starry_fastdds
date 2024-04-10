@@ -47,7 +47,7 @@ impl NetlinkSocket {
             }
         }
     }
-
+    
 
     /// Receives data into the given buffer.
     pub fn recv(&self, buf: &mut [u8]) -> AxResult<usize> {
@@ -68,10 +68,9 @@ impl NetlinkSocket {
         done.header.flags = 2; // NLM_F_MULTI
 
         NETLINK_SOCKET_SET.with_socket_mut(self.handle, |socket| {
-            let mut buf = vec![0u8; done.buffer_len()];
-            done.serialize(&mut buf);
-            error!("NetlinkSocket::send_getlink: sending done message: {:?}", buf);
-            socket.send(&buf)
+            let buf = socket.send(done.buffer_len());
+            done.serialize(buf);
+            Ok(done.buffer_len())
         })
     }
     

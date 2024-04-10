@@ -36,6 +36,9 @@ members = [
     "crates/timer_list",
     "crates/tuple_for_each",
     "crates/elf_parser",
+    "crates/netlink-packet-utils",
+    "crates/netlink-packet-core",
+    "crates/netlink-packet-route",
 
     "modules/axalloc",
     "modules/axconfig",

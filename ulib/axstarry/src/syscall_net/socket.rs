@@ -507,9 +507,17 @@ impl Socket {
         match &*inner {
             SocketInner::Tcp(s) => s.local_addr(),
             SocketInner::Udp(s) => s.local_addr(),
-            SocketInner::Netlink(_) => unimplemented!("name on netlink socket"),
-        }
-        .map(from_core_sockaddr)
+            SocketInner::Netlink(_) =>{
+                let idel_addr = SocketAddr {
+                    addr: IpAddr::v4(0, 0, 0, 0),
+                    port: 0,
+                };
+                if true {
+                    return Ok(idel_addr);
+                }
+                unimplemented!("name on netlink socket")
+            },
+        }.map(from_core_sockaddr)
     }
 
     /// Return peer address.
@@ -636,7 +644,13 @@ impl Socket {
                     .recv_from(buf)
                     .map(|(val, addr)| (val, from_core_sockaddr(addr))),
             },
-            SocketInner::Netlink(_) => unimplemented!("recv_from on netlink socket"),
+            SocketInner::Netlink(s) => {
+                let idel_addr = SocketAddr {
+                    addr: IpAddr::v4(0, 0, 0, 0),
+                    port: 0,
+                };
+                s.recv(buf).map(|len| (len, idel_addr))
+            },
         }
     }
 

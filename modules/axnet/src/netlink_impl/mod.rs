@@ -1,49 +1,21 @@
 mod netlink;
+mod raw;
 
 use alloc::vec::Vec;
-use alloc::vec;
 use lazy_init::LazyInit;
-use smoltcp::storage::{PacketBuffer, PacketMetadata};
 use axsync::Mutex;
 
-
-use self::netlink::NetlinkMessageHeader;
+pub use self::raw::RawNetlinkSocket;
 pub use self::netlink::NetlinkSocket;
 
 const RTM_GETLINK: u16 = 18;
 
 const RTM_GETADDR: u16 = 22;
 
-const NETLINK_BUFFER_SIZE: usize = 64 * 1024;
 
 static NETLINK_SOCKET_SET: LazyInit<NetlinkSockSetWrapper> = LazyInit::new();
 struct NetlinkSockSetWrapper<'a>(Mutex<Vec<RawNetlinkSocket<'a>>>);
 
-pub struct RawNetlinkSocket<'a>{
-    rx_buffer: PacketBuffer<'a, PacketMetadata<NetlinkMessageHeader>>,
-    tx_buffer: PacketBuffer<'a, PacketMetadata<NetlinkMessageHeader>>,
-}
-
-
-impl<'a> RawNetlinkSocket<'a> {
-    fn new() -> Self {
-        RawNetlinkSocket {
-            rx_buffer: PacketBuffer::new(
-                vec![PacketMetadata::EMPTY; 64],
-                vec![0; NETLINK_BUFFER_SIZE],
-            ),
-            tx_buffer: PacketBuffer::new(
-                vec![PacketMetadata::EMPTY; 64],
-                vec![0; NETLINK_BUFFER_SIZE],
-            ),
-        }
-    }
-
-    fn send(&mut self, buf: &[u8], pid: u64) -> usize {
-        todo!("RawNetlinkSocket::send")
-    }
-
-}
 
 impl<'a> NetlinkSockSetWrapper<'a> {
     fn new() -> Self {

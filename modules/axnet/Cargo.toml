@@ -29,6 +29,9 @@ axsync = { path = "../axsync" }
 axtask = { path = "../axtask" }
 axdriver = { path = "../axdriver", features = ["net"] }
 axio = { path = "../../crates/axio" }
+netlink-packet-route = { path = "../../crates/netlink-packet-route" }
+netlink-packet-core = { path = "../../crates/netlink-packet-core" }
+
 
 [dependencies.smoltcp]
 git = "https://github.com/rcore-os/smoltcp.git"

@@ -324,11 +324,11 @@ pub fn syscall_sendto(args: [usize; 6]) -> SyscallResult {
                 s.bind(into_core_sockaddr(SocketAddr::new(
                     IpAddr::v4(0, 0, 0, 0),
                     0,
-                )))
+                ).into()))
                 .unwrap();
             }
             match addr {
-                Some(addr) => s.send_to(buf, into_core_sockaddr(addr)),
+                Some(addr) => s.send_to(buf, into_core_sockaddr(addr.into())),
                 None => {
                     // not connected and no target is given
                     if s.peer_addr().is_err() {

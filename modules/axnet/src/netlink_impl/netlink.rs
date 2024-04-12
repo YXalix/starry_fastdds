@@ -32,6 +32,11 @@ impl NetlinkSocket {
         }
     }
 
+    /// Bind for netlink socket.
+    pub fn bind(&self) -> AxResult {
+        Ok(())
+    }
+
     /// Transmits data in the given buffer.
     pub fn send(&self, buf: &[u8]) -> AxResult<usize> {
         let header = NetlinkHeader::parseheader(buf)?;
@@ -47,7 +52,7 @@ impl NetlinkSocket {
             }
         }
     }
-    
+
 
     /// Receives data into the given buffer.
     pub fn recv(&self, buf: &mut [u8]) -> AxResult<usize> {
@@ -56,7 +61,7 @@ impl NetlinkSocket {
         })
     }
 
-    
+
     fn send_getlink(&self, header: &NetlinkHeader) -> AxResult<usize> {
         // return done message
         error!("NetlinkSocket::send_getlink: {:?}", header);
@@ -73,8 +78,8 @@ impl NetlinkSocket {
             Ok(done.buffer_len())
         })
     }
-    
+
     fn send_getaddr(&self) -> AxResult<usize> {
         todo!("NetlinkSocket::send_getaddr")
-    } 
+    }
 }

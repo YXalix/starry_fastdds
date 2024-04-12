@@ -517,7 +517,9 @@ impl Socket {
                 }
                 unimplemented!("name on netlink socket")
             },
-        }.map(from_core_sockaddr)
+        }
+        .map(from_core_sockaddr)
+        .map(SocketAddr::from)
     }
 
     /// Return peer address.
@@ -529,15 +531,16 @@ impl Socket {
             SocketInner::Netlink(_) => unimplemented!("peer_name on netlink socket"),
         }
         .map(from_core_sockaddr)
+        .map(SocketAddr::from)
     }
 
     /// Bind the socket to the given address.
     pub fn bind(&self, addr: SocketAddr) -> AxResult {
         let inner = self.inner.lock();
         match &*inner {
-            SocketInner::Tcp(s) => s.bind(into_core_sockaddr(addr)),
-            SocketInner::Udp(s) => s.bind(into_core_sockaddr(addr)),
-            SocketInner::Netlink(_) => unimplemented!("bind on netlink socket"),
+            SocketInner::Tcp(s) => s.bind(into_core_sockaddr(addr.into())),
+            SocketInner::Udp(s) => s.bind(into_core_sockaddr(addr.into())),
+            SocketInner::Netlink(s) => s.bind() ,
         }
     }
 
@@ -588,7 +591,7 @@ impl Socket {
                 recv_buf_size: AtomicU64::new(64 * 1024),
                 congestion: Mutex::new(String::from("reno")),
             },
-            from_core_sockaddr(addr),
+            from_core_sockaddr(addr).into(),
         ))
     }
 
@@ -596,8 +599,8 @@ impl Socket {
     pub fn connect(&self, addr: SocketAddr) -> AxResult {
         let inner = self.inner.lock();
         match &*inner {
-            SocketInner::Tcp(s) => s.connect(into_core_sockaddr(addr)),
-            SocketInner::Udp(s) => s.connect(into_core_sockaddr(addr)),
+            SocketInner::Tcp(s) => s.connect(into_core_sockaddr(addr.into())),
+            SocketInner::Udp(s) => s.connect(into_core_sockaddr(addr.into())),
             SocketInner::Netlink(_) => unimplemented!("connect on netlink socket"),
         }
     }
@@ -618,7 +621,7 @@ impl Socket {
         let inner = self.inner.lock();
         match &*inner {
             SocketInner::Tcp(s) => s.send(buf),
-            SocketInner::Udp(s) => s.send_to(buf, into_core_sockaddr(addr)),
+            SocketInner::Udp(s) => s.send_to(buf, into_core_sockaddr(addr.into())),
             SocketInner::Netlink(_) => unimplemented!("sendto on netlink socket"),
         }
     }
@@ -635,14 +638,17 @@ impl Socket {
                     None => s.recv(buf),
                 }
                 .map(|len| (len, from_core_sockaddr(addr)))
+                .map(|(len, sa)| (len, SocketAddr::from(sa)))
             }
             SocketInner::Udp(s) => match self.get_recv_timeout() {
                 Some(time) => s
                     .recv_from_timeout(buf, time.turn_to_ticks())
-                    .map(|(val, addr)| (val, from_core_sockaddr(addr))),
+                    .map(|(val, addr)| (val, from_core_sockaddr(addr)))
+                    .map(|(val, sa)| (val, SocketAddr::from(sa))),
                 None => s
                     .recv_from(buf)
-                    .map(|(val, addr)| (val, from_core_sockaddr(addr))),
+                    .map(|(val, addr)| (val, from_core_sockaddr(addr)))
+                    .map(|(val, sa)| (val, SocketAddr::from(sa))),
             },
             SocketInner::Netlink(s) => {
                 let idel_addr = SocketAddr {
@@ -778,7 +784,10 @@ pub unsafe fn socket_address_from(addr: *const u8) -> SocketAddr {
             let addr = IpAddr::v4(a[0], a[1], a[2], a[3]);
             SocketAddr { addr, port }
         }
-        Domain::AF_NETLINK => unimplemented!("Unsupported Domain (AF_NETLINK)"),
+        Domain::AF_NETLINK => {
+            let groups = *(addr.add(4) as *const u32);
+            SocketAddr::new_netlink(groups)
+        }
     }
 }
 /// Only support INET (ipv4)

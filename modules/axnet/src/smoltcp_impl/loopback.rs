@@ -34,7 +34,7 @@ fn snoop_tcp_from_ip(buffer: &[u8], sockets: &mut SocketSet) -> Result<(), smolt
         let is_first = tcp_packet.syn() && !tcp_packet.ack();
         if is_first {
             // create a socket for the first incoming TCP packet, as the later accept() returns.
-            LISTEN_TABLE.incoming_tcp_packet(src_addr, dst_addr, sockets);
+            LISTEN_TABLE.incoming_tcp_packet(src_addr.into(), dst_addr.into(), sockets);
         }
     }
     Ok(())

@@ -18,7 +18,7 @@ use axnet::NetlinkSocket;
 use axsync::Mutex;
 use num_enum::TryFromPrimitive;
 
-use crate::TimeVal;
+use crate::{SyscallError, SyscallResult, TimeVal};
 
 pub const SOCKET_TYPE_MASK: usize = 0xFF;
 
@@ -79,6 +79,7 @@ pub enum SocketOption {
     SO_RCVBUF = 8,
     SO_KEEPALIVE = 9,
     SO_RCVTIMEO = 20,
+    SO_SNDTIMEO = 21,
 }
 
 #[derive(TryFromPrimitive, PartialEq)]
@@ -92,7 +93,7 @@ pub enum TcpSocketOption {
 }
 
 impl SocketOption {
-    pub fn set(&self, socket: &Socket, opt: &[u8]) {
+    pub fn set(&self, socket: &Socket, opt: &[u8]) -> SyscallResult {
         match self {
             SocketOption::SO_REUSEADDR => {
                 if opt.len() < 4 {
@@ -103,6 +104,7 @@ impl SocketOption {
 
                 socket.set_reuse_addr(opt_value != 0);
                 // socket.reuse_addr = opt_value != 0;
+                Ok((0))
             }
             SocketOption::SO_DONTROUTE => {
                 if opt.len() < 4 {
@@ -113,6 +115,7 @@ impl SocketOption {
 
                 socket.set_reuse_addr(opt_value != 0);
                 // socket.reuse_addr = opt_value != 0;
+                Ok((0))
             }
             SocketOption::SO_SNDBUF => {
                 if opt.len() < 4 {
@@ -123,6 +126,7 @@ impl SocketOption {
 
                 socket.set_send_buf_size(opt_value as u64);
                 // socket.send_buf_size = opt_value as usize;
+                Ok((0))
             }
             SocketOption::SO_RCVBUF => {
                 if opt.len() < 4 {
@@ -133,6 +137,7 @@ impl SocketOption {
 
                 socket.set_recv_buf_size(opt_value as u64);
                 // socket.recv_buf_size = opt_value as usize;
+                Ok((0))
             }
             SocketOption::SO_KEEPALIVE => {
                 if opt.len() < 4 {
@@ -164,6 +169,7 @@ impl SocketOption {
                 drop(inner);
                 socket.set_recv_buf_size(opt_value as u64);
                 // socket.recv_buf_size = opt_value as usize;
+                Ok((0))
             }
             SocketOption::SO_RCVTIMEO => {
                 if opt.len() < size_of::<TimeVal>() {
@@ -176,9 +182,13 @@ impl SocketOption {
                 } else {
                     Some(timeout)
                 });
+                Ok((0))
             }
             SocketOption::SO_ERROR => {
                 panic!("can't set SO_ERROR");
+            }
+            SocketOption::SO_SNDTIMEO => {
+                Err(SyscallError::EPERM)
             }
         }
     }
@@ -284,6 +294,9 @@ impl SocketOption {
             }
             SocketOption::SO_ERROR => {
                 // 当前没有存储错误列表，因此不做处理
+            }
+            SocketOption::SO_SNDTIMEO => {
+                panic!("unimplemented!")
             }
         }
     }

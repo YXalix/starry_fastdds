@@ -1,4 +1,5 @@
 use core::net::SocketAddr;
+use core::ops::DerefMut;
 use core::sync::atomic::{AtomicBool, Ordering};
 
 use axerrno::{ax_err, ax_err_type, AxError, AxResult};
@@ -13,6 +14,11 @@ use smoltcp::wire::{IpEndpoint, IpListenEndpoint};
 
 use super::addr::{from_core_sockaddr, into_core_sockaddr, is_unspecified, UNSPECIFIED_ENDPOINT};
 use super::{SocketSetWrapper, SOCKET_SET};
+
+use crate::net_impl::{LOOPBACK, LOOPBACK_DEV};
+use smoltcp::time::Instant;
+use crate::net_impl::{current_time_nanos, NANOS_PER_MICROS};
+use smoltcp::wire::IpAddress as IpAddr;
 
 /// A UDP socket that provides POSIX-like APIs.
 pub struct UdpSocket {
@@ -212,6 +218,21 @@ impl UdpSocket {
                 writable: socket.can_send(),
             })
         })
+    }
+
+    pub fn set_socket_ttl(&self, ttl: u8) {
+        SOCKET_SET.with_socket_mut::<udp::Socket, _, _>(self.handle, |socket| {
+            socket.set_hop_limit(Some(ttl))
+        });
+    }
+
+    pub fn add_membership(&self, multicast_addr: IpAddr, interface_addr: IpAddr) {
+        let timestamp = Instant::from_micros_const((current_time_nanos() / NANOS_PER_MICROS) as i64);
+        debug!(
+            "setsockopt IP_ADD_MEMBERSHIP: multiaddr: {}, interfaceaddr: {}",
+            multicast_addr, interface_addr
+        );
+        LOOPBACK.lock().join_multicast_group(LOOPBACK_DEV.lock().deref_mut(), multicast_addr, timestamp);
     }
 }
 

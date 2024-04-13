@@ -113,7 +113,7 @@ impl IpOption {
                 let mut inner = socket.inner.lock();
                 match &mut *inner {
                     SocketInner::Udp(s) => {
-                        let ttl = i32::from_ne_bytes(<[u8; 4]>::try_from(&opt[0..4]).unwrap());
+                        let ttl = u8::from_ne_bytes(<[u8; 1]>::try_from(&opt[0..1]).unwrap());
                         debug!("setsockopt IP_MULTICAST_TTL: {}", ttl);
                         s.set_socket_ttl(ttl as u8);
                         Ok((0))

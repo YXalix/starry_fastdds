@@ -10,7 +10,7 @@ use alloc::string::String;
 use axerrno::{AxError, AxResult};
 use axfs::api::{FileIO, FileIOType, OpenFlags, Read, Write};
 use axprocess::current_process;
-use axlog::warn;
+use axlog::{debug, warn};
 use axnet::{
     from_core_sockaddr, into_core_sockaddr, poll_interfaces, IpAddr, SocketAddr, TcpSocket, UdpSocket
 };
@@ -18,7 +18,7 @@ use axnet::NetlinkSocket;
 use axsync::Mutex;
 use num_enum::TryFromPrimitive;
 
-use crate::TimeVal;
+use crate::{SyscallError, SyscallResult, TimeVal};
 
 pub const SOCKET_TYPE_MASK: usize = 0xFF;
 
@@ -71,6 +71,16 @@ pub enum SocketOptionLevel {
 #[derive(TryFromPrimitive, Debug)]
 #[repr(usize)]
 #[allow(non_camel_case_types)]
+pub enum IpOption {
+    IP_MULTICAST_IF = 32,
+    IP_MULTICAST_TTL = 33,
+    IP_MULTICAST_LOOP = 34,
+    IP_ADD_MEMBERSHIP = 35,
+}
+
+#[derive(TryFromPrimitive, Debug)]
+#[repr(usize)]
+#[allow(non_camel_case_types)]
 pub enum SocketOption {
     SO_REUSEADDR = 2,
     SO_ERROR = 4,
@@ -79,6 +89,7 @@ pub enum SocketOption {
     SO_RCVBUF = 8,
     SO_KEEPALIVE = 9,
     SO_RCVTIMEO = 20,
+    SO_SNDTIMEO = 21,
 }
 
 #[derive(TryFromPrimitive, PartialEq)]
@@ -91,18 +102,59 @@ pub enum TcpSocketOption {
     TCP_CONGESTION = 13,
 }
 
+impl IpOption {
+    pub fn set(&self, socket: &Socket, opt: &[u8]) -> SyscallResult {
+        match self {
+            IpOption::IP_MULTICAST_IF => {
+                // 我们只会使用LOOPBACK作为多播接口
+                Ok((0))
+            }
+            IpOption::IP_MULTICAST_TTL => {
+                let mut inner = socket.inner.lock();
+                match &mut *inner {
+                    SocketInner::Udp(s) => {
+                        let ttl = u8::from_ne_bytes(<[u8; 1]>::try_from(&opt[0..1]).unwrap());
+                        debug!("setsockopt IP_MULTICAST_TTL: {}", ttl);
+                        s.set_socket_ttl(ttl as u8);
+                        Ok((0))
+                    }
+                    _ => panic!("setsockopt IP_MULTICAST_TTL on a non-udp socket"),
+                }
+            }
+            IpOption::IP_MULTICAST_LOOP => {
+                Ok((0))
+            }
+            IpOption::IP_ADD_MEMBERSHIP => {
+                let multicast_addr = IpAddr::v4(
+                    opt[0],
+                    opt[1],
+                    opt[2],
+                    opt[3],
+                );
+                let interface_addr = IpAddr::v4(
+                    opt[4],
+                    opt[5],
+                    opt[6],
+                    opt[7],
+                );
+                let mut inner = socket.inner.lock();
+                match &mut *inner {
+                    SocketInner::Udp(s) => {
+                        s.add_membership(multicast_addr, interface_addr)
+                    }
+                    _ => panic!("setsockopt IP_ADD_MEMBERSHIP on a non-udp socket"),
+                }
+                Ok((0))
+            }
+        }
+    }
+}
+
 impl SocketOption {
-    pub fn set(&self, socket: &Socket, opt: &[u8]) {
+    pub fn set(&self, socket: &Socket, opt: &[u8]) -> SyscallResult {
         match self {
             SocketOption::SO_REUSEADDR => {
-                if opt.len() < 4 {
-                    panic!("can't read a int from socket opt value");
-                }
-
-                let opt_value = i32::from_ne_bytes(<[u8; 4]>::try_from(&opt[0..4]).unwrap());
-
-                socket.set_reuse_addr(opt_value != 0);
-                // socket.reuse_addr = opt_value != 0;
+                unimplemented!("wait for implementation of SO_REUSEADDR");
             }
             SocketOption::SO_DONTROUTE => {
                 if opt.len() < 4 {
@@ -113,6 +165,7 @@ impl SocketOption {
 
                 socket.set_reuse_addr(opt_value != 0);
                 // socket.reuse_addr = opt_value != 0;
+                Ok((0))
             }
             SocketOption::SO_SNDBUF => {
                 if opt.len() < 4 {
@@ -123,6 +176,7 @@ impl SocketOption {
 
                 socket.set_send_buf_size(opt_value as u64);
                 // socket.send_buf_size = opt_value as usize;
+                Ok((0))
             }
             SocketOption::SO_RCVBUF => {
                 if opt.len() < 4 {
@@ -133,6 +187,7 @@ impl SocketOption {
 
                 socket.set_recv_buf_size(opt_value as u64);
                 // socket.recv_buf_size = opt_value as usize;
+                Ok((0))
             }
             SocketOption::SO_KEEPALIVE => {
                 if opt.len() < 4 {
@@ -164,6 +219,7 @@ impl SocketOption {
                 drop(inner);
                 socket.set_recv_buf_size(opt_value as u64);
                 // socket.recv_buf_size = opt_value as usize;
+                Ok((0))
             }
             SocketOption::SO_RCVTIMEO => {
                 if opt.len() < size_of::<TimeVal>() {
@@ -176,9 +232,13 @@ impl SocketOption {
                 } else {
                     Some(timeout)
                 });
+                Ok((0))
             }
             SocketOption::SO_ERROR => {
                 panic!("can't set SO_ERROR");
+            }
+            SocketOption::SO_SNDTIMEO => {
+                Err(SyscallError::EPERM)
             }
         }
     }
@@ -284,6 +344,9 @@ impl SocketOption {
             }
             SocketOption::SO_ERROR => {
                 // 当前没有存储错误列表，因此不做处理
+            }
+            SocketOption::SO_SNDTIMEO => {
+                panic!("unimplemented!")
             }
         }
     }
@@ -517,7 +580,9 @@ impl Socket {
                 }
                 unimplemented!("name on netlink socket")
             },
-        }.map(from_core_sockaddr)
+        }
+        .map(from_core_sockaddr)
+        .map(SocketAddr::from)
     }
 
     /// Return peer address.
@@ -529,15 +594,16 @@ impl Socket {
             SocketInner::Netlink(_) => unimplemented!("peer_name on netlink socket"),
         }
         .map(from_core_sockaddr)
+        .map(SocketAddr::from)
     }
 
     /// Bind the socket to the given address.
     pub fn bind(&self, addr: SocketAddr) -> AxResult {
         let inner = self.inner.lock();
         match &*inner {
-            SocketInner::Tcp(s) => s.bind(into_core_sockaddr(addr)),
-            SocketInner::Udp(s) => s.bind(into_core_sockaddr(addr)),
-            SocketInner::Netlink(_) => unimplemented!("bind on netlink socket"),
+            SocketInner::Tcp(s) => s.bind(into_core_sockaddr(addr.into())),
+            SocketInner::Udp(s) => s.bind(into_core_sockaddr(addr.into())),
+            SocketInner::Netlink(s) => s.bind() ,
         }
     }
 
@@ -588,7 +654,7 @@ impl Socket {
                 recv_buf_size: AtomicU64::new(64 * 1024),
                 congestion: Mutex::new(String::from("reno")),
             },
-            from_core_sockaddr(addr),
+            from_core_sockaddr(addr).into(),
         ))
     }
 
@@ -596,8 +662,8 @@ impl Socket {
     pub fn connect(&self, addr: SocketAddr) -> AxResult {
         let inner = self.inner.lock();
         match &*inner {
-            SocketInner::Tcp(s) => s.connect(into_core_sockaddr(addr)),
-            SocketInner::Udp(s) => s.connect(into_core_sockaddr(addr)),
+            SocketInner::Tcp(s) => s.connect(into_core_sockaddr(addr.into())),
+            SocketInner::Udp(s) => s.connect(into_core_sockaddr(addr.into())),
             SocketInner::Netlink(_) => unimplemented!("connect on netlink socket"),
         }
     }
@@ -618,7 +684,7 @@ impl Socket {
         let inner = self.inner.lock();
         match &*inner {
             SocketInner::Tcp(s) => s.send(buf),
-            SocketInner::Udp(s) => s.send_to(buf, into_core_sockaddr(addr)),
+            SocketInner::Udp(s) => s.send_to(buf, into_core_sockaddr(addr.into())),
             SocketInner::Netlink(_) => unimplemented!("sendto on netlink socket"),
         }
     }
@@ -635,14 +701,17 @@ impl Socket {
                     None => s.recv(buf),
                 }
                 .map(|len| (len, from_core_sockaddr(addr)))
+                .map(|(len, sa)| (len, SocketAddr::from(sa)))
             }
             SocketInner::Udp(s) => match self.get_recv_timeout() {
                 Some(time) => s
                     .recv_from_timeout(buf, time.turn_to_ticks())
-                    .map(|(val, addr)| (val, from_core_sockaddr(addr))),
+                    .map(|(val, addr)| (val, from_core_sockaddr(addr)))
+                    .map(|(val, sa)| (val, SocketAddr::from(sa))),
                 None => s
                     .recv_from(buf)
-                    .map(|(val, addr)| (val, from_core_sockaddr(addr))),
+                    .map(|(val, addr)| (val, from_core_sockaddr(addr)))
+                    .map(|(val, sa)| (val, SocketAddr::from(sa))),
             },
             SocketInner::Netlink(s) => {
                 let idel_addr = SocketAddr {
@@ -778,7 +847,10 @@ pub unsafe fn socket_address_from(addr: *const u8) -> SocketAddr {
             let addr = IpAddr::v4(a[0], a[1], a[2], a[3]);
             SocketAddr { addr, port }
         }
-        Domain::AF_NETLINK => unimplemented!("Unsupported Domain (AF_NETLINK)"),
+        Domain::AF_NETLINK => {
+            let groups = *(addr.add(4) as *const u32);
+            SocketAddr::new_netlink(groups)
+        }
     }
 }
 /// Only support INET (ipv4)

@@ -324,11 +324,11 @@ pub fn syscall_sendto(args: [usize; 6]) -> SyscallResult {
                 s.bind(into_core_sockaddr(SocketAddr::new(
                     IpAddr::v4(0, 0, 0, 0),
                     0,
-                )))
+                ).into()))
                 .unwrap();
             }
             match addr {
-                Some(addr) => s.send_to(buf, into_core_sockaddr(addr)),
+                Some(addr) => s.send_to(buf, into_core_sockaddr(addr.into())),
                 None => {
                     // not connected and no target is given
                     if s.peer_addr().is_err() {
@@ -461,15 +461,21 @@ pub fn syscall_set_sock_opt(args: [usize; 6]) -> SyscallResult {
     let opt = unsafe { from_raw_parts(opt_value, opt_len as usize) };
 
     match level {
-        SocketOptionLevel::IP => Ok(0),
+        SocketOptionLevel::IP => {
+            let Ok(option) = IpOption::try_from(opt_name) else {
+                warn!("[setsockopt()] option {opt_name} not supported in socket level");
+                return Ok(0);
+            };
+
+            option.set(socket, opt)
+        }
         SocketOptionLevel::Socket => {
             let Ok(option) = SocketOption::try_from(opt_name) else {
                 warn!("[setsockopt()] option {opt_name} not supported in socket level");
                 return Ok(0);
             };
 
-            option.set(socket, opt);
-            Ok(0)
+            option.set(socket, opt)
         }
         SocketOptionLevel::Tcp => {
             let Ok(option) = TcpSocketOption::try_from(opt_name) else {
@@ -496,7 +502,7 @@ pub fn syscall_get_sock_opt(args: [usize; 6]) -> SyscallResult {
     let opt_value = args[3] as *mut u8;
     let opt_len = args[4] as *mut u32;
     let Ok(level) = SocketOptionLevel::try_from(level) else {
-        error!("[setsockopt()] level {level} not supported");
+        error!("[getsockopt()] level {level} not supported");
         unimplemented!();
     };
 
@@ -540,14 +546,14 @@ pub fn syscall_get_sock_opt(args: [usize; 6]) -> SyscallResult {
         SocketOptionLevel::IP => {}
         SocketOptionLevel::Socket => {
             let Ok(option) = SocketOption::try_from(opt_name) else {
-                panic!("[setsockopt()] option {opt_name} not supported in socket level");
+                panic!("[getsockopt()] option {opt_name} not supported in socket level");
             };
 
             option.get(socket, opt_value, opt_len);
         }
         SocketOptionLevel::Tcp => {
             let Ok(option) = TcpSocketOption::try_from(opt_name) else {
-                panic!("[setsockopt()] option {opt_name} not supported in tcp level");
+                panic!("[getsockopt()] option {opt_name} not supported in tcp level");
             };
 
             if option == TcpSocketOption::TCP_INFO {

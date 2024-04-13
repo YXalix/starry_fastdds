@@ -91,6 +91,15 @@ impl EpollFile {
         }
     }
 
+    /// 判断fd是否在monitor_list中
+    pub fn contains(&self, fd: i32) -> bool {
+        let inner = self.inner.lock();
+        if inner.monitor_list.contains_key(&fd) {
+            return true;
+        }
+        false
+    }
+
     /// 控制指定的事件，改变其对应的事件内容
     ///
     /// 成功返回0，错误返回对应的编号

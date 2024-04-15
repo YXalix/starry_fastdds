@@ -26,6 +26,7 @@ pub struct UdpSocket {
     local_addr: RwLock<Option<IpEndpoint>>,
     peer_addr: RwLock<Option<IpEndpoint>>,
     nonblock: AtomicBool,
+    reuse_addr: AtomicBool,
 }
 
 impl UdpSocket {
@@ -39,6 +40,7 @@ impl UdpSocket {
             local_addr: RwLock::new(None),
             peer_addr: RwLock::new(None),
             nonblock: AtomicBool::new(false),
+            reuse_addr: AtomicBool::new(false),
         }
     }
 
@@ -61,6 +63,22 @@ impl UdpSocket {
     #[inline]
     pub fn is_nonblocking(&self) -> bool {
         self.nonblock.load(Ordering::Acquire)
+    }
+
+    /// Returns whether this socket is in reuse address mode.
+    #[inline]
+    pub fn is_reuse_addr(&self) -> bool {
+        self.reuse_addr.load(Ordering::Acquire)
+    }
+
+    /// Moves this UDP socket into or out of reuse address mode.
+    /// 
+    /// When a socket is bound, the `SO_REUSEADDR` option allows multiple sockets to be bound to the
+    /// same address if they are bound to different local addresses. This option must be set before
+    /// calling `bind`.
+    #[inline]
+    pub fn set_reuse_addr(&self, reuse_addr: bool) {
+        self.reuse_addr.store(reuse_addr, Ordering::Release);
     }
 
     /// Moves this UDP socket into or out of nonblocking mode.
@@ -95,6 +113,12 @@ impl UdpSocket {
             addr: (!is_unspecified(local_endpoint.addr)).then_some(local_endpoint.addr),
             port: local_endpoint.port,
         };
+
+        if !self.is_reuse_addr() {
+            // Check if the address is already in use
+            SOCKET_SET.bind_check(local_endpoint.addr, local_endpoint.port)?;
+        }
+
         SOCKET_SET.with_socket_mut::<udp::Socket, _, _>(self.handle, |socket| {
             socket.bind(endpoint).or_else(|e| match e {
                 BindError::InvalidState => ax_err!(AlreadyExists, "socket bind() failed"),
@@ -232,7 +256,7 @@ impl UdpSocket {
             "setsockopt IP_ADD_MEMBERSHIP: multiaddr: {}, interfaceaddr: {}",
             multicast_addr, interface_addr
         );
-        LOOPBACK.lock().join_multicast_group(LOOPBACK_DEV.lock().deref_mut(), multicast_addr, timestamp);
+        let _ = LOOPBACK.lock().join_multicast_group(LOOPBACK_DEV.lock().deref_mut(), multicast_addr, timestamp);
     }
 }
 

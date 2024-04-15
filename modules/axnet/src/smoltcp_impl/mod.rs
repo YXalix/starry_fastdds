@@ -9,6 +9,7 @@ use alloc::vec;
 use core::cell::RefCell;
 use core::ops::DerefMut;
 
+use axerrno::{ax_err, ax_err_type, AxError, AxResult};
 use axdriver::prelude::*;
 use axhal::time::{current_time_nanos, NANOS_PER_MICROS};
 use axsync::Mutex;
@@ -16,7 +17,7 @@ use driver_net::{DevError, NetBufPtr};
 use lazy_init::LazyInit;
 use smoltcp::iface::{Config, Interface, SocketHandle, SocketSet};
 use smoltcp::phy::{Device, DeviceCapabilities, Medium, RxToken, TxToken};
-use smoltcp::socket::{self, AnySocket};
+use smoltcp::socket::{self, AnySocket, Socket};
 use smoltcp::time::Instant;
 use smoltcp::wire::{EthernetAddress, HardwareAddress, IpAddress, IpCidr};
 
@@ -128,6 +129,23 @@ impl<'a> SocketSetWrapper<'a> {
         let mut set = self.0.lock();
         let socket = set.get_mut(handle);
         f(socket)
+    }
+
+    pub fn bind_check(&self, addr: IpAddress, port: u16) -> AxResult {
+        let mut sockets = self.0.lock();
+        error!("checking addr: {:?}, port: {}", addr, port);
+        for item in sockets.iter_mut() {
+            match item.1 {
+                Socket::Udp(s) => {
+                    error!("{}", s.endpoint().port);
+                    if s.endpoint().port == port {
+                        return Err(AxError::AddrInUse);
+                    }
+                },
+                _ => continue,
+            };
+        }
+        Ok(())
     }
 
     pub fn poll_interfaces(&self) {
@@ -350,6 +368,9 @@ pub(crate) fn init(_net_dev: AxNetDevice) {
                 .push(IpCidr::new(IpAddress::v4(127, 0, 0, 1), 8))
                 .unwrap();
         });
+
+        let multicast_addr = IpAddress::v4(239, 255, 0, 1);
+        let _= iface.join_multicast_group(&mut device, multicast_addr, Instant::from_micros_const((current_time_nanos() / NANOS_PER_MICROS) as i64));
         LOOPBACK.init_by(Mutex::new(iface));
         LOOPBACK_DEV.init_by(Mutex::new(device));
     }

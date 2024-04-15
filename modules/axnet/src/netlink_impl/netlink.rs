@@ -1,5 +1,7 @@
 
 use alloc::vec;
+use crate::netlink_impl::{RTM_GETADDR, RTM_GETLINK};
+
 use super::{NETLINK_SOCKET_SET, NetlinkSockSetWrapper};
 use axerrno::AxResult;
 use netlink_packet_core::{DoneMessage, FakeNetlinkInnerMessage, NetlinkHeader, NetlinkMessage, NetlinkPayload};
@@ -40,12 +42,13 @@ impl NetlinkSocket {
     /// Transmits data in the given buffer.
     pub fn send(&self, buf: &[u8]) -> AxResult<usize> {
         let header = NetlinkHeader::parseheader(buf)?;
-        match &header.message_type {
-            RTM_GETLINK => {
+        error!("NetlinkSocket::send_getlink: {:?}", header);
+        match header.message_type {
+            ty if ty == RTM_GETLINK => {
                 self.send_getlink(&header)
             }
-            RTM_GETADDR => {
-                self.send_getaddr()
+            ty if ty == RTM_GETADDR => {
+                self.send_getaddr(&header)
             }
             _ => {
                 unimplemented!("NetlinkSocket::send: unsupported message type")
@@ -64,7 +67,6 @@ impl NetlinkSocket {
 
     fn send_getlink(&self, header: &NetlinkHeader) -> AxResult<usize> {
         // return done message
-        error!("NetlinkSocket::send_getlink: {:?}", header);
         let extended_ack = vec![0u8; 0];
         let done_msg = DoneMessage::new(0, extended_ack);
 
@@ -79,7 +81,19 @@ impl NetlinkSocket {
         })
     }
 
-    fn send_getaddr(&self) -> AxResult<usize> {
-        todo!("NetlinkSocket::send_getaddr")
+    fn send_getaddr(&self, header: &NetlinkHeader) -> AxResult<usize> {
+        // return done message
+        let extended_ack = vec![0u8; 0];
+        let done_msg = DoneMessage::new(0, extended_ack);
+
+        let mut done = NetlinkMessage::new(header.clone(), NetlinkPayload::<FakeNetlinkInnerMessage>::Done(done_msg.clone()),);
+        done.header.message_type = 3; // NLMSG_DONE
+        done.header.flags = 2; // NLM_F_MULTI
+
+        NETLINK_SOCKET_SET.with_socket_mut(self.handle, |socket| {
+            let buf = socket.send(done.buffer_len());
+            done.serialize(buf);
+            Ok(done.buffer_len())
+        })
     }
 }

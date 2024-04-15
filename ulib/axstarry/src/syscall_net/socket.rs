@@ -154,7 +154,13 @@ impl SocketOption {
     pub fn set(&self, socket: &Socket, opt: &[u8]) -> SyscallResult {
         match self {
             SocketOption::SO_REUSEADDR => {
-                unimplemented!("wait for implementation of SO_REUSEADDR");
+                // unimplemented!("wait for implementation of SO_REUSEADDR");
+                if opt.len() < 4 {
+                    panic!("can't read a int from socket opt value");
+                }
+                let opt_value = i32::from_ne_bytes(<[u8; 4]>::try_from(&opt[0..4]).unwrap());
+                socket.set_reuse_addr(opt_value != 0);
+                Ok((0))
             }
             SocketOption::SO_DONTROUTE => {
                 if opt.len() < 4 {
@@ -442,7 +448,6 @@ pub struct Socket {
     recv_timeout: Mutex<Option<TimeVal>>,
 
     // fake options
-    reuse_addr: AtomicBool,
     dont_route: bool,
     send_buf_size: AtomicU64,
     recv_buf_size: AtomicU64,
@@ -464,7 +469,11 @@ impl Socket {
         *self.recv_timeout.lock()
     }
     fn get_reuse_addr(&self) -> bool {
-        self.reuse_addr.load(core::sync::atomic::Ordering::Acquire)
+        let inner = self.inner.lock();
+        match &*inner {
+            SocketInner::Udp(s) => s.is_reuse_addr(),
+            _ => unimplemented!("get_reuse_addr on other socket")
+        }
     }
 
     fn get_send_buf_size(&self) -> u64 {
@@ -486,8 +495,11 @@ impl Socket {
     }
 
     fn set_reuse_addr(&self, flag: bool) {
-        self.reuse_addr
-            .store(flag, core::sync::atomic::Ordering::Release)
+        let inner = self.inner.lock();
+        match &*inner {
+            SocketInner::Udp(s) => s.set_reuse_addr(flag),
+            _ => unimplemented!("set_reuse_addr on other socket")
+        }
     }
 
     fn set_send_buf_size(&self, size: u64) {
@@ -525,7 +537,6 @@ impl Socket {
             inner: Mutex::new(inner),
             close_exec: false,
             recv_timeout: Mutex::new(None),
-            reuse_addr: AtomicBool::new(false),
             dont_route: false,
             send_buf_size: AtomicU64::new(64 * 1024),
             recv_buf_size: AtomicU64::new(64 * 1024),
@@ -648,7 +659,6 @@ impl Socket {
                 inner: Mutex::new(SocketInner::Tcp(new_socket)),
                 close_exec: false,
                 recv_timeout: Mutex::new(None),
-                reuse_addr: AtomicBool::new(false),
                 dont_route: false,
                 send_buf_size: AtomicU64::new(64 * 1024),
                 recv_buf_size: AtomicU64::new(64 * 1024),

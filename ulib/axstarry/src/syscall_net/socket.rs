@@ -518,18 +518,27 @@ impl Socket {
 
     /// Create a new socket with the given domain and socket type.
     pub fn new(domain: Domain, socket_type: SocketType) -> Self {
-        let inner = match socket_type {
-            SocketType::SOCK_STREAM | SocketType::SOCK_SEQPACKET => {
-                SocketInner::Tcp(TcpSocket::new())
+        let inner=match domain {
+            Domain::AF_UNIX => {
+                unimplemented!()
             }
-            SocketType::SOCK_DGRAM => SocketInner::Udp(UdpSocket::new()),
-            SocketType::SOCK_RAW => {
-                match domain {
-                    Domain::AF_NETLINK => SocketInner::Netlink(NetlinkSocket::new(current_process().pid())),
+            Domain::AF_INET => {
+                match socket_type {
+                    SocketType::SOCK_STREAM | SocketType::SOCK_SEQPACKET => {
+                        SocketInner::Tcp(TcpSocket::new())
+                    }
+                    SocketType::SOCK_DGRAM => SocketInner::Udp(UdpSocket::new()),
                     _ => unimplemented!(),
                 }
-            },
-            _ => unimplemented!(),
+            }
+            Domain::AF_NETLINK => {
+                match socket_type {
+                    SocketType::SOCK_RAW => {
+                        SocketInner::Netlink(NetlinkSocket::new(current_process().pid()))
+                    }
+                    _ => unimplemented!(),
+                }
+            }
         };
         Self {
             domain,

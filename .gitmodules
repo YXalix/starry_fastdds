@@ -1,0 +1,9 @@
+[submodule "crates/netlink-packet-utils"]
+	path = crates/netlink-packet-utils
+	url = https://github.com/YXalix/netlink-packet-utils.git
+[submodule "crates/netlink-packet-core"]
+	path = crates/netlink-packet-core
+	url = https://github.com/YXalix/netlink-packet-core.git
+[submodule "crates/netlink-packet-route"]
+	path = crates/netlink-packet-route
+	url = https://github.com/YXalix/netlink-packet-route.git

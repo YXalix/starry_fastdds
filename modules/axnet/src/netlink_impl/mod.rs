@@ -1,20 +1,24 @@
 mod netlink;
 mod raw;
 
-use alloc::vec::Vec;
+use alloc::vec::{self, Vec};
 use lazy_init::LazyInit;
 use axsync::Mutex;
+use smoltcp::iface::SocketSet;
 
 pub use self::raw::RawNetlinkSocket;
 pub use self::netlink::NetlinkSocket;
+
 
 const RTM_GETLINK: u16 = 18;
 
 const RTM_GETADDR: u16 = 22;
 
 
+type NetlinkSockSet<'a> = Vec<Option<RawNetlinkSocket<'a>>>;
+
 static NETLINK_SOCKET_SET: LazyInit<NetlinkSockSetWrapper> = LazyInit::new();
-struct NetlinkSockSetWrapper<'a>(Mutex<Vec<RawNetlinkSocket<'a>>>);
+struct NetlinkSockSetWrapper<'a>(Mutex<NetlinkSockSet<'a>>);
 
 
 impl<'a> NetlinkSockSetWrapper<'a> {
@@ -27,10 +31,17 @@ impl<'a> NetlinkSockSetWrapper<'a> {
     }
 
     pub fn add(&self, socket: RawNetlinkSocket<'a>) -> usize {
-        self.0.lock().push(socket);
-        let handle = self.0.lock().len() - 1;
-        debug!("socket {}: created", handle);
-        handle
+        let mut set = self.0.lock();
+        for (i, slot) in set.iter_mut().enumerate() {
+            if slot.is_none() {
+                *slot = Some(socket);
+                debug!("socket {}: created", i);
+                return i;
+            }
+        }
+        set.push(Some(socket));
+        debug!("socket {}: created", set.len() - 1);
+        set.len() - 1
     }
     
     pub fn with_socket<R, F>(&self, handle: usize, f: F) -> R
@@ -39,6 +50,7 @@ impl<'a> NetlinkSockSetWrapper<'a> {
     {
         let set = self.0.lock();
         let socket = set.get(handle).unwrap();
+        let socket = socket.as_ref().unwrap();
         f(socket)
     }
 
@@ -48,12 +60,13 @@ impl<'a> NetlinkSockSetWrapper<'a> {
     {
         let mut set = self.0.lock();
         let socket = set.get_mut(handle).unwrap();
+        let socket = socket.as_mut().unwrap();
         f(socket)
     }
 
     pub fn remove(&self, handle: usize) {
         let mut set = self.0.lock();
-        set.remove(handle);
+        set[handle] = None;
         debug!("socket {}: removed", handle);
     }
 
